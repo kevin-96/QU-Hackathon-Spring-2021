@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "qu-hackathon-s21"
+  "defaultProject": "qu-hackathon-s21",
+  "cli": {
+    "analytics": "dc90b15b-067e-4a4f-969d-e4463aa44daf"
+  }
 }

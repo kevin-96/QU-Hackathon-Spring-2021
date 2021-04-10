@@ -102,6 +102,9 @@ html, body {
 .fa-facebook {
   color: #3b5998;
 }
+.fa-wikipedia-w {
+  color: #404244;
+}
 .fa-twitter {
   color: #00aced;
 }
@@ -115,6 +118,7 @@ html, body {
   color: #bb0000;
 }
 .fa-facebook:hover,
+.fa-wikipedia-w:hover,
 .fa-twitter:hover,
 .fa-google-plus-g:hover,
 .fa-instagram:hover,
@@ -122,11 +126,11 @@ html, body {
   color: #d5d5d5;
 }
 #foot-gif {
-  max-width: 60px;
-  max-height: 60px;
+  max-width: 200px;
+  max-height: 120px;
 }
 footer {
-  background-color: #3f3f3f;
+  background-color: #616060;
   color: #d5d5d5;
   padding-top: 2rem;
 }
@@ -266,3 +270,30 @@ Large (lg) devices (desktops, 992px and up)
 Extra (xl) large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) { ... }
 */
+
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+  width:50vw;
+}
+
+::ng-deep .mat-input-wrapper{
+  width:400px !important;
+}
+
+.example-section {
+  margin: 12px 0;
+}
+
+.example-margin {
+  margin: 0 12px;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+}

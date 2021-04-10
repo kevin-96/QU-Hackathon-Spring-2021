@@ -1,10 +1,8 @@
 <body>
   <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+  <!-- <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"
-        ><img id="logo" src="../../../assets/img/code1.png"
-      /></a>
+      <a class="navbar-brand" href="#"><img id="logo" src="../../../assets/img/code1.png"/></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -17,30 +15,10 @@
           <li class="nav-item active">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Team
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="/">Option 1</a>
-              <a class="dropdown-item" href="/">Option 2</a>
-              <a class="dropdown-item" href="/">Option 3</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="nopage">Contact Us</a>
-          </li>
         </ul>
       </div>
     </div>
-  </nav>
+  </nav> -->
 
   <!--- Image Slider -->
   <div id="slides" class="carousel slide" data-ride="carousel">
@@ -55,9 +33,6 @@
         <div class="carousel-caption">
           <h1 class="display-2">RICHARD BRANSON</h1>
           <h3>"There is no planet B. We have to take care of the one we have."</h3>
-          <button type="button" class="btn btn-outline-light btn-lg">
-            SOON TO BE A POP UP WINDOW
-          </button>
         </div>
       </div>
       <div class="carousel-item">
@@ -68,9 +43,6 @@
             "We have this handy fusion reactor in the sky called the sun. You
             don't have to do anything, it just works. It shows up everyday."
           </h3>
-          <button type="button" class="btn btn-outline-light btn-lg">
-            SOON TO BE A POP UP WINDOW
-          </button>
         </div>
       </div>
       <div class="carousel-item">
@@ -81,9 +53,6 @@
             "We have a single mission: to protect and hand on the planet to the
             next generation."
           </h3>
-          <button type="button" class="btn btn-outline-light btn-lg">
-            SOON TO BE A POP UP WINDOW
-          </button>
         </div>
       </div>
     </div>
@@ -95,25 +64,232 @@
       <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
         <p class="lead">We invite YOU to save the planet!</p>
       </div>
-      <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
-        <a href="#"><button type="button" class="btn btn-outline-secondary btn-lg">Get Info</button></a>
-      </div> -->
     </div>
   </div>
 
- <!--- Two Column Section -->
- <div class="container-fluid padding">
+ <!--- Quiz Section -->
+ <div *ngIf="!completedTest" class="container-fluid padding">
   <div class="row padding">
-    <div class="col-md-12 col-lg-6">
-      <h2>Your Idea, We Make It Possible</h2>
-      <p>You come up with the idea for an app, could be web based, mobile, or for pc/mac</p>
-      <p>We help you make it a reality</p>
-      <p>Just contact us and ask about previous projects to give you an idea of waht we are capable of</p>
-      <br>
-      <a href="#" class="btn btn-primary">Learn More</a>
+    <div class="col-md-12 col-lg-12">
+      <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step>
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Household</ng-template>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>Home Size</mat-label>
+                <mat-select [formControl]="homeSizeControl">
+                  <mat-option value="0">--Select--</mat-option>
+                  <mat-option value="2">Apartment</mat-option>
+                  <mat-option value="4">Small</mat-option>
+                  <mat-option value="7">Medium</mat-option>
+                  <mat-option value="10">Large</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+            <mat-form-field>
+              <mat-label>Amount of People in Household</mat-label>
+              <mat-select [formControl]="peopleControl">
+                <mat-option value="0">--Select--</mat-option>
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="6">6</mat-option>
+                <mat-option value="7">7</mat-option>
+                <mat-option value="8">8</mat-option>
+                <mat-option value="9">9</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step label="Food, Waste & Recycling">
+          <form [formGroup]="secondFormGroup">
+            <div class="row">
+              <mat-form-field>
+                <mat-label>How often do you eat domesticated meat?</mat-label>
+                <mat-select [formControl]="foodChoiceControl">
+                  <mat-option value="0">--Select--</mat-option>
+                  <mat-option value="2">Vegan</mat-option>
+                  <mat-option value="4">Vegitarian</mat-option>
+                  <mat-option value="8">A few times per week</mat-option>
+                  <mat-option value="10">Daily</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>How much garbage do you produce per week?</mat-label>
+                <mat-select [formControl]="wasteControl">
+                  <mat-option value="0">--Select--</mat-option>
+                  <mat-option value="50">4+ containers</mat-option>
+                  <mat-option value="40">3 containers</mat-option>
+                  <mat-option value="30">2 containers</mat-option>
+                  <mat-option value="20">1 container</mat-option>
+                  <mat-option value="5">Less than 1 container</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </form>
+          <section class="example-section">
+            <span class="example-list-section">
+              <mat-label>What do you recycle?</mat-label>
+              <ul>
+                <li *ngFor="let item of recycleItems">
+                  <mat-checkbox [(ngModel)]="item.selected"
+                  [color]="primary">
+                  {{item.name}}
+                </mat-checkbox>
+              </li>
+            </ul>
+        </span>
+        </section>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+        </mat-step>
+        <mat-step label="Utility & Travel">
+          <form [formGroup]="secondFormGroup">
+            <div class="row">
+              <mat-form-field>
+                <mat-label>How often do you run the dishwasher per week?</mat-label>
+                <mat-select [formControl]="dishwasherControl">
+                  <mat-option value="0">--Select--</mat-option>
+                  <mat-option value="4">9+</mat-option>
+                  <mat-option value="3">4-8</mat-option>
+                  <mat-option value="2">1-3</mat-option>
+                  <mat-option value="1">Less than once</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>How often do you run a washing machine?</mat-label>
+                <mat-select [formControl]="washingMachineControl">
+                  <mat-option value="0">--Select--</mat-option>
+                  <mat-option value="4">9+</mat-option>
+                  <mat-option value="3">4-8</mat-option>
+                  <mat-option value="2">1-3</mat-option>
+                  <mat-option value="1">Less than once</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>How long are your showers (in minutes per day)?</mat-label>
+                <mat-select [formControl]="showerLengthControl">
+                  <mat-option value="0">--Select--</mat-option>
+                  <mat-option value="15">30+</mat-option>
+                  <mat-option value="10">15-30</mat-option>
+                  <mat-option value="5">5-15</mat-option>
+                  <mat-option value="1">Less than 5</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>Approximately how many miles do you travel per year?</mat-label>
+                <mat-select [formControl]="milesDrivenControl">
+                  <mat-option value="0">--Select--</mat-option>
+                  <mat-option value="12">15,000+</mat-option>
+                  <mat-option value="10">10,000-15,000</mat-option>
+                  <mat-option value="6">1,000-10,000</mat-option>
+                  <mat-option value="4">Less than 1,000</mat-option>
+                  <mat-option value="0">I do not own a vehicle</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>Approximately how many kilowatt hours do you use per month?</mat-label>
+                <mat-select [formControl]="electricityControl">
+                  <mat-option value="0">--Select--</mat-option>
+                  <mat-option value="12">1,000+</mat-option>
+                  <mat-option value="10">700-1000</mat-option>
+                  <mat-option value="6">400-700</mat-option>
+                  <mat-option value="4">Less than 400</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="finishTest()">Calculate Score!</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
     </div>
-    <div class="col-md-12 col-lg-6">
-      <img src="../../../assets/img/blueimg.jpg" class="img-fluid">
+  </div>
+</div>
+
+<div *ngIf="completedTest">
+  <div class="container-fluid padding">
+    <div class="row welcome text-center">
+      <div class="col-12">
+        <h1 class="display-4">YOUR RESULTS</h1>
+        <hr />
+      </div>
+    </div>
+  </div>
+
+  <!--- Cards -->
+  <div class="container-fluid padding">
+    <div class="row padding">
+      <div class="col-md-12">
+        <div class="card">
+          <!-- <img class="card-img-top" src="" /> -->
+          <div class="card-body">
+            <h4 *ngIf="finalScore <= 40" class="card-title">EXCELLENT</h4>
+            <h4 *ngIf="(finalScore <= 65) && (finalScore > 40)" class="card-title">GOOD</h4>
+            <h4 *ngIf="finalScore > 65" class="card-title">BAD</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">WATER</h4>
+            <p class="card-text">Bad!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">ELECTRICITY</h4>
+            <p class="card-text">Also bad!<br /></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">WASTE & FOOD</h4>
+            <p class="card-text">Meh.</p>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="row">
+      <button mat-button (click)="resetTest()">Retake the Test</button>
     </div>
   </div>
 </div>
@@ -169,112 +345,94 @@
         <p>Reduce your monthly kilowatt hours by X.</p>
       </div>
     </div>
-    <hr class="my-4" />
   </div>
-
-  <div *ngIf="completedTest">
-    <hr class="my-4" />
-    <div class="container-fluid padding">
-      <div class="row welcome text-center">
-        <div class="col-12">
-          <h1 class="display-4">YOUR RESULTS</h1>
-          <hr />
-        </div>
-      </div>
-    </div>
-
-    <!--- Cards -->
-    <div class="container-fluid padding">
-      <div class="row padding">
-        <div class="col-md-4">
-          <div class="card">
-            <!-- <img class="card-img-top" src="" /> -->
-            <div class="card-body">
-              <h4 class="card-title">WATER</h4>
-              <p class="card-text">Bad!</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card">
-            <!-- <img class="card-img-top" src="" /> -->
-            <div class="card-body">
-              <h4 class="card-title">ELECTRICITY</h4>
-              <p class="card-text">Also bad!<br /></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card">
-            <!-- <img class="card-img-top" src="" /> -->
-            <div class="card-body">
-              <h4 class="card-title">WASTE & FOOD</h4>
-              <p class="card-text">Meh.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <hr class="my-4" />
 
   <!--- Two Column Section -->
   <div class="container-fluid padding">
     <div class="row padding">
-      <!-- <div class="col-md-12 col-lg-6">
-
-      </div> -->
-      <div class="col-md-12 col-lg-12">
+      <div class="col-md-12 col-lg-6">
+        <h1 style="margin-bottom: 2rem;">Climate Change over time</h1>
+        <p>Though warming has not been uniform across the planet, the upward trend in the globally averaged temperature shows that more areas are warming than cooling. According to NOAA's 2020 Annual Climate Report the combined land and ocean temperature has increased at an average rate of 0.13 degrees Fahrenheit (0.08 degrees Celsius) per decade since 1880; however, the average rate of increase since 1981 (0.18°C / 0.32°F) has been more than twice that rate.</p>
+        <p>The 10 warmest years on record have all occurred since 2005, and 7 of the 10 have occurred just since 2014. Looking back to 1988, a pattern emerges: except for 2011, as each new year is added to the historical record, it becomes one of the top 10 warmest on record at that time, but it is ultimately replaced as the “top ten” window shifts forward in time.</p>
+        <p>By 2020, models project that global surface temperature will be more than 0.5°C (0.9°F) warmer than the 1986-2005 average, regardless of which carbon dioxide emissions pathway the world follows. This similarity in temperatures regardless of total emissions is a short-term phenomenon: it reflects the tremendous inertia of Earth's vast oceans. The high heat capacity of water means that ocean temperature doesn't react instantly to the increased heat being trapped by greenhouse gases. By 2030, however, the heating imbalance caused by greenhouse gases begins to overcome the oceans' thermal inertia, and projected temperature pathways begin to diverge, with unchecked carbon dioxide emissions likely leading to several additional degrees of warming by the end of the century.</p>
+      </div>
+      <div class="col-md-12 col-lg-6">
         <iframe
           src="https://climate.nasa.gov/interactives/climate_time_machine"
           width="900"
           height="700"
         ></iframe>
-        <iframe
-          src="https://climate.nasa.gov/embed/128"
-          width="768"
-          height="450"
-          scrolling="no"
-          frameborder="0"
-        ></iframe>
-        <iframe
-          src="https://climate.nasa.gov/interactives/global-ice-viewer"
-          width="900"
-          height="700"
-        ></iframe>
-        <iframe
-          src="https://climate.nasa.gov/quizzes/quiz-energy/"
-          width="916"
-          height="620"
-        ></iframe>
-        <iframe
-          src="https://climate.nasa.gov/quizzes/global-temp-quiz/"
-          width="916"
-          height="620"
-        ></iframe>
       </div>
     </div>
-    <hr class="my-4" />
   </div>
+  <hr class="my-4" />
+
+
+  <!--- Two Column Section -->
+<div class="container-fluid padding">
+  <div class="row padding">
+    <div class="col-md-12 col-lg-6">
+      <iframe
+      src="https://climate.nasa.gov/embed/128"
+      width="768"
+      height="460"
+      scrolling="no"
+      frameborder="0"
+    ></iframe>
+    </div>
+    <div class="col-md-12 col-lg-6">
+
+    </div>
+  </div>
+</div>
+<hr class="my-4" />
+
+ <!--- Two Column Section -->
+ <div class="container-fluid padding">
+  <div class="row padding">
+    <div class="col-md-12 col-lg-6">
+
+    </div>
+    <div class="col-md-12 col-lg-6">
+      <iframe
+        src="https://climate.nasa.gov/interactives/global-ice-viewer"
+        width="900"
+        height="700"
+      ></iframe>
+      <!-- <iframe
+        src="https://climate.nasa.gov/quizzes/quiz-energy/"
+        width="916"
+        height="620"
+      ></iframe>
+      <iframe
+        src="https://climate.nasa.gov/quizzes/global-temp-quiz/"
+        width="916"
+        height="620"
+      ></iframe> -->
+    </div>
+  </div>
+</div>
+<hr class="my-4" />
+
+
+
+
+
   <!--- Connect -->
   <div class="container-fluid padding">
     <div class="row text-center padding">
       <div class="col-12">
-        <h2>Connect</h2>
+        <h2>More Info</h2>
       </div>
       <div class="col-12 social padding">
-        <a href=""
-          ><i class="fab fa-facebook"></i
+        <a href="https://en.wikipedia.org/wiki/Climate"
+          ><i class="fab fa-wikipedia-w"></i
         ></a>
-        <a href=""
+        <a href="https://twitter.com/search?q=climate&src=typed_query"
           ><i class="fab fa-twitter"></i
         ></a>
-        <a href="nopage.html"><i class="fab fa-google-plus-g"></i></a>
-        <a href=""
-          ><i class="fab fa-instagram"></i
-        ></a>
-        <a href=""
+        <a href="https://www.youtube.com/results?search_query=climate"
           ><i class="fab fa-youtube"></i
         ></a>
       </div>
@@ -286,34 +444,34 @@
     <div class="container-fluid padding">
       <div class="row text-center">
         <div class="col-md-4">
-          <img id="foot-gif" src="../../../assets/img/code.gif" />
+          <img id="foot-gif" src="../../../assets/img/qu-full-logo.png" />
           <hr class="light" />
-          <p></p>
-          <p></p>
-          <p></p>
+          <p>Quinnipiac University</p>
+          <p>275 Mt. Carmel Ave</p>
+          <p>Hamden, CT 06518</p>
           <p></p>
         </div>
         <div class="col-md-4">
           <hr class="light" />
-          <h5></h5>
+          <h3>Team Members</h3>
           <hr class="light" />
-          <p></p>
-          <p></p>
-          <p></p>
+          <p>Kevin Sangurima</p>
+          <p>Massimo Angelillo</p>
+          <p>Stack Overflow</p>
         </div>
         <div class="col-md-4">
           <hr class="light" />
-          <h5></h5>
+          <h3>QCC Hackathon Spring-21</h3>
           <hr class="light" />
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
+          <p>Topic: Climate</p>
+          <p>Tool: Carbon Footprint Web-Tool</p>
+          <p>Thanks to the officers for organizing this event</p>
+          <p>Thanks to the judges; Hi Charles!</p>
         </div>
-        <div class="col-12">
+        <!-- <div class="col-12">
           <hr class="light-100" />
-          <h5>&copy; </h5>
-        </div>
+          <h4>Quinnipiac University</h4>
+        </div> -->
       </div>
     </div>
   </footer>

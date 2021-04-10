@@ -1,24 +1,12 @@
 <body>
   <!-- Navigation Bar -->
-  <!-- <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+  <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><img id="logo" src="../../../assets/img/code1.png"/></a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarResponsive">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-        </ul>
-      </div>
+      <a class="navbar-brand" href="#">
+        <span style="font-size: 30px">Climate Impact</span>
+      </a>
     </div>
-  </nav> -->
+  </nav>
 
   <!--- Image Slider -->
   <div id="slides" class="carousel slide" data-ride="carousel">
@@ -69,7 +57,15 @@
 
  <!--- Quiz Section -->
  <div *ngIf="!completedTest" class="container-fluid padding">
-  <div class="row padding">
+  <div class="container-fluid padding">
+    <div class="row welcome text-center">
+      <div class="col-12">
+        <h1 class="display-4">Climate Impact Score - Quiz</h1>
+        <hr />
+      </div>
+    </div>
+  </div>
+  <div class="row padding quiz-margin">
     <div class="col-md-12 col-lg-12">
       <mat-horizontal-stepper [linear]="isLinear" #stepper>
         <mat-step>
@@ -113,7 +109,7 @@
           <form [formGroup]="secondFormGroup">
             <div class="row">
               <mat-form-field>
-                <mat-label>How often do you eat domesticated meat?</mat-label>
+                <mat-label>How often do you eat meat?</mat-label>
                 <mat-select [formControl]="foodChoiceControl">
                   <mat-option value="0">--Select--</mat-option>
                   <mat-option value="2">Vegan</mat-option>
@@ -252,41 +248,18 @@
     <div class="row padding">
       <div class="col-md-12">
         <div class="card">
-          <!-- <img class="card-img-top" src="" /> -->
           <div class="card-body">
-            <h4 *ngIf="finalScore <= 40" class="card-title">EXCELLENT</h4>
-            <h4 *ngIf="(finalScore <= 65) && (finalScore > 40)" class="card-title">GOOD</h4>
-            <h4 *ngIf="finalScore > 65" class="card-title">BAD</h4>
+            <h3 *ngIf="finalScore <= 65" class="card-title">You scored {{finalScore}}: EXCELLENT</h3>
+            <p *ngIf="finalScore <= 65">Amazing! You have a really low impact on the environment. Keep doing what you're doing!</p>
+
+            <h3 *ngIf="(finalScore <= 85) && (finalScore > 65)" class="card-title">You scored {{finalScore}}: GOOD</h3>
+            <p *ngIf="(finalScore <= 85) && (finalScore > 65)">Very cool! You have some room for improvement, but otherwise you are low-impact on the environment.</p>
+            
+            <h3 *ngIf="finalScore > 85" class="card-title">You scored {{finalScore}}: BAD</h3>
+            <p *ngIf="finalScore > 85">Hmm, we have some tips for reducing your impact on the environment. You should check them out below!</p>
           </div>
         </div>
       </div>
-
-      <!-- <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">WATER</h4>
-            <p class="card-text">Bad!</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">ELECTRICITY</h4>
-            <p class="card-text">Also bad!<br /></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">WASTE & FOOD</h4>
-            <p class="card-text">Meh.</p>
-          </div>
-        </div>
-      </div> -->
     </div>
     <div class="row">
       <button mat-button (click)="resetTest()">Retake the Test</button>
@@ -295,9 +268,7 @@
 </div>
 
 <hr class="my-4">
-
-  <!--- Welcome Section -->
-  <div class="container-fluid padding">
+  <div *ngIf="completedTest" class="container-fluid padding">
     <div class="row welcome text-center">
       <div class="col-12">
         <h1 classI="display-4">How to Reduce Your Carbon Footprint</h1>
@@ -309,90 +280,98 @@
     </div>
   </div>
 
-  <!--- Three Column Section -->
-  <div class="container-fluid padding">
+  <div *ngIf="completedTest" class="container-fluid padding">
     <div class="row text-center padding">
       <div class="col-xs-12 col-sm-6 col-md-4">
         <i class="fas fa-shower"></i>
         <h3>SHOWERS</h3>
-        <p>Reduce showers by X minutes.</p>
+        <p *ngIf="optimizedChoices[0] != 0">Reduce showers by {{optimizedChoices[0]}} minutes.</p>
+        <p *ngIf="optimizedChoices[0] == 0">You're doing really well with your shower length! Keep it up!</p>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4">
         <i class="fas fa-car"></i>
         <h3>TRAVEL</h3>
-        <p>Reduce travel by X miles.</p>
+        <p *ngIf="optimizedChoices[1] != 0">Reduce travel by {{optimizedChoices[1]}} miles per week.</p>
+        <p *ngIf="optimizedChoices[1] == 0">Wow! You don't travel that much. That's good!</p>
       </div>
       <div class="col-xs-12 col-md-4">
         <i class="fas fa-utensils"></i>
         <h3>FOOD CHOICES</h3>
-        <p>Try eating less domestic meat.</p>
+        <p *ngIf="optimizedChoices[2] != 0">Try eating meat a few times a week instead of daily.</p>
+        <p *ngIf="optimizedChoices[2] == 0">Keep up the healthy eating, it's good for the climate!</p>
       </div>
     </div>
     <div class="row text-center padding">
       <div class="col-xs-12 col-sm-6 col-md-4">
         <i class="fas fa-soap"></i>
         <h3>APPLIANCES</h3>
-        <p>Run your dishwasher, dryer and washing machine less.</p>
+        <p *ngIf="optimizedChoices[5] <= 1">Wow! You're doing great!</p>
+        <p *ngIf="optimizedChoices[5] > 2">Hey there, trying using your appliances a combined amount of {{optimizedChoices[5]}} less times per week.</p>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4">
         <i class="fas fa-dumpster"></i>
         <h3>WASTE</h3>
-        <p>Reduce your waste and recycle more.</p>
+        <p *ngIf="optimizedChoices[3] != 0">Try reducing your waste by {{optimizedChoices[3]}} garbage can per week.</p>
+        <p *ngIf="optimizedChoices[3] == 0">You don't produce that much waste. Thank you!</p>
       </div>
       <div class="col-xs-12 col-md-4">
         <i class="fas fa-bolt"></i>
         <h3>ELECTRICITY</h3>
-        <p>Reduce your monthly kilowatt hours by X.</p>
+        <p *ngIf="optimizedChoices[4] != 0">Try reducing your monthly kilowatt hours by {{optimizedChoices[4]}}.</p>
+        <p *ngIf="optimizedChoices[4] == 0">You're really keeping the lights off, huh? Awesome!</p>
       </div>
     </div>
   </div>
   <hr class="my-4" />
 
-  <!--- Two Column Section -->
   <div class="container-fluid padding">
     <div class="row padding">
       <div class="col-md-12 col-lg-6">
-        <h1 style="margin-bottom: 2rem;">Climate Change over time</h1>
+        <h1 style="margin-bottom: 4rem;">Climate Change Over Time</h1>
         <p>Though warming has not been uniform across the planet, the upward trend in the globally averaged temperature shows that more areas are warming than cooling. According to NOAA's 2020 Annual Climate Report the combined land and ocean temperature has increased at an average rate of 0.13 degrees Fahrenheit (0.08 degrees Celsius) per decade since 1880; however, the average rate of increase since 1981 (0.18°C / 0.32°F) has been more than twice that rate.</p>
         <p>The 10 warmest years on record have all occurred since 2005, and 7 of the 10 have occurred just since 2014. Looking back to 1988, a pattern emerges: except for 2011, as each new year is added to the historical record, it becomes one of the top 10 warmest on record at that time, but it is ultimately replaced as the “top ten” window shifts forward in time.</p>
         <p>By 2020, models project that global surface temperature will be more than 0.5°C (0.9°F) warmer than the 1986-2005 average, regardless of which carbon dioxide emissions pathway the world follows. This similarity in temperatures regardless of total emissions is a short-term phenomenon: it reflects the tremendous inertia of Earth's vast oceans. The high heat capacity of water means that ocean temperature doesn't react instantly to the increased heat being trapped by greenhouse gases. By 2030, however, the heating imbalance caused by greenhouse gases begins to overcome the oceans' thermal inertia, and projected temperature pathways begin to diverge, with unchecked carbon dioxide emissions likely leading to several additional degrees of warming by the end of the century.</p>
       </div>
       <div class="col-md-12 col-lg-6">
         <iframe
-          src="https://climate.nasa.gov/interactives/climate_time_machine"
-          width="900"
-          height="700"
+        src="https://climate.nasa.gov/interactives/climate_time_machine"
+        width="900"
+        height="700"
         ></iframe>
       </div>
     </div>
   </div>
   <hr class="my-4" />
-
-
-  <!--- Two Column Section -->
-<div class="container-fluid padding">
-  <div class="row padding">
-    <div class="col-md-12 col-lg-6">
-      <iframe
-      src="https://climate.nasa.gov/embed/128"
-      width="768"
-      height="460"
-      scrolling="no"
-      frameborder="0"
-    ></iframe>
-    </div>
-    <div class="col-md-12 col-lg-6">
-
+  
+  <div class="container-fluid padding">
+    <div class="row padding">
+      <div class="col-md-12 col-lg-6">
+        <iframe
+        src="https://climate.nasa.gov/embed/128"
+        width="768"
+        height="460"
+        scrolling="no"
+        frameborder="0"
+        ></iframe>
+      </div>
+      <div class="col-md-12 col-lg-6">
+      <h1 style="margin-bottom: 4rem;">Sea Level Increase Over Time</h1>
+      <p>Global sea level has been rising over the past century, and the rate has increased in recent decades. In 2014, global sea level was 2.6 inches above the 1993 average—the highest annual average in the satellite record (1993-present). Sea level continues to rise at a rate of about one-eighth of an inch per year.</p>
+      <p>Higher sea levels mean that deadly and destructive storm surges push farther inland than they once did, which also means more frequent nuisance flooding. Disruptive and expensive, nuisance flooding is estimated to be from 300 percent to 900 percent more frequent within U.S. coastal communities than it was just 50 years ago.</p>
+      <p>The two major causes of global sea level rise are thermal expansion caused by warming of the ocean (since water expands as it warms) and increased melting of land-based ice, such as glaciers and ice sheets. The oceans are absorbing more than 90 percent of the increased atmospheric heat associated with emissions from human activity. </p>
     </div>
   </div>
 </div>
 <hr class="my-4" />
 
- <!--- Two Column Section -->
  <div class="container-fluid padding">
   <div class="row padding">
     <div class="col-md-12 col-lg-6">
-
+      <h1 style="margin-bottom: 4rem;">Sea Level Increase Over Time</h1>
+      <p>A new study has found that the world lost 28 trillion tons of ice lost in 24 years, from 1994 to 2017. To give some idea of this amount, the lost ice would be enough to cover the entire state of Arizona with a polar cap 30 stories tall (or about 100 meters).</p>
+      <p>One of the biggest concerns from this immense loss of ice is the rise in sea levels that comes with it. The perpetrators are the usual suspects: the ice of Greenland, of the minor glaciers and, recently, those of Antarctica.</p>
+      <p>Currently, Greenland and minor glaciers play a dominant role in sea level rise, while the remaining contribution is due to the phenomenon of thermal expansion of the oceans. The more we warm the oceans, which absorb about 85% of the heat due to global warming, the more these “swell” (expand) a bit like the gas in a hot air balloon when it heats up, favoring the rising of the seas.</p>
+      <p>Future estimates suggest that if we were to continue on today’s trajectory of greenhouse gas emissions and global warming, the role of glaciers in sea level rise will be less and less — in view of the fact that many will, alas, disappear — while Greenland and Antarctica will be responsible for most of the rising of the seas through the melting of their ice. The role of thermal expansion will diminish, not because the ocean will not continue to expand — rather, it will continue to do so faster and faster as it continues to warm up — but because the melting of polar ice will be exorbitant and far outweigh the effect of thermal expansion</p>
     </div>
     <div class="col-md-12 col-lg-6">
       <iframe
@@ -400,26 +379,11 @@
         width="900"
         height="700"
       ></iframe>
-      <!-- <iframe
-        src="https://climate.nasa.gov/quizzes/quiz-energy/"
-        width="916"
-        height="620"
-      ></iframe>
-      <iframe
-        src="https://climate.nasa.gov/quizzes/global-temp-quiz/"
-        width="916"
-        height="620"
-      ></iframe> -->
     </div>
   </div>
 </div>
 <hr class="my-4" />
 
-
-
-
-
-  <!--- Connect -->
   <div class="container-fluid padding">
     <div class="row text-center padding">
       <div class="col-12">
@@ -439,7 +403,6 @@
     </div>
   </div>
 
-  <!--- Footer -->
   <footer>
     <div class="container-fluid padding">
       <div class="row text-center">
@@ -464,14 +427,10 @@
           <h3>QCC Hackathon Spring-21</h3>
           <hr class="light" />
           <p>Topic: Climate</p>
-          <p>Tool: Carbon Footprint Web-Tool</p>
-          <p>Thanks to the officers for organizing this event</p>
-          <p>Thanks to the judges; Hi Charles!</p>
+          <p>Tool: Climate Impact Web-Tool</p>
+          <p>Thank you to the officers for organizing this event!</p>
+          <p>Thank you to the judges!</p>
         </div>
-        <!-- <div class="col-12">
-          <hr class="light-100" />
-          <h4>Quinnipiac University</h4>
-        </div> -->
       </div>
     </div>
   </footer>

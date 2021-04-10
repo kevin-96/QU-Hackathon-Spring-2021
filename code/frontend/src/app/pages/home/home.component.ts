@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
   completedTest: boolean = false; // set to false once test has been complete
   isLinear: boolean = true;
   finalScore: number;
+  optimizedChoices: Array<number> = [];
 
   homeSizeControl = new FormControl('0');
   foodChoiceControl = new FormControl('0');
@@ -47,29 +48,54 @@ export class HomeComponent implements OnInit {
 
   scoreMap = {
     electricity: {
-      "12": 1000,
-      "10": 850,
-      "6": 550,
-      "4": 400
+      "12": 200,
+      "10": 100,
+      "6": 0,
+      "4": 0,
+      "0": 0
     },
     miles: {
-      "12": 15000,
-      "10": 12500,
-      "6": 5000,
-      "4": 1000
+      "12": 2000,
+      "10": 1500,
+      "6": 0,
+      "4": 0,
+      "0": 0
     },
     shower: {
-      "15": 30,
-      "10": 20,
-      "5": 10,
-      "1": 5
+      "15": 5,
+      "10": 5,
+      "5": 0,
+      "1": 0,
+      "0": 0
     },
     garbage: {
-      "50": 4,
-      "40": 3,
-      "30": 2,
-      "20": 1,
-      "5": 0
+      "50": 1,
+      "40": 1,
+      "30": 1,
+      "20": 0,
+      "5": 0,
+      "0": 0
+    },
+    food: {
+      "0": 0,
+      "2": 0,
+      "4": 0,
+      "8": 0,
+      "10": 1
+    },
+    washingMachine: {
+      "4": 3,
+      "3": 2,
+      "2": 1,
+      "1": 0,
+      "0": 0
+    },
+    dishWasher: {
+      "4": 3,
+      "3": 2,
+      "2": 1,
+      "1": 0,
+      "0": 0
     }
   }
 
@@ -95,10 +121,28 @@ export class HomeComponent implements OnInit {
 
   resetTest() {
     this.completedTest = false;
+    this.recycleItems = [
+      {name: 'Glass', selected: false},
+      {name: 'Plastic', selected: false},
+      {name: 'Paper', selected: false},
+      {name: 'Aluminum', selected: false},
+      {name: 'Steel', selected: false},
+      {name: 'Compost', selected: false}
+    ];
+    this.homeSizeControl = new FormControl('0');
+    this.foodChoiceControl = new FormControl('0');
+    this.peopleControl = new FormControl('0');
+    this.wasteControl = new FormControl('0');
+    this.dishwasherControl = new FormControl('0');
+    this.washingMachineControl = new FormControl('0');
+    this.showerLengthControl = new FormControl('0');
+    this.milesDrivenControl = new FormControl('0');
+    this.electricityControl = new FormControl('0');
   }
 
   finishTest() {
     this.finalScore = this.calculateScore();
+    this.optimizedChoices = this.optimizeScore();
     this.completedTest = true;
   }
 
@@ -107,7 +151,14 @@ export class HomeComponent implements OnInit {
       .reduce((accu, curr) => accu + parseFloat(curr.value), 0) + (24 - 4 * this.recycleItems.filter(x => x.selected).length);
   }
 
-  optimizeScore() {
-    scoreMap.electricity[this.electricity.value]
+  optimizeScore(): Array<number> {
+    return [
+      this.scoreMap.shower[this.showerLengthControl.value],
+      parseInt((this.scoreMap.miles[this.milesDrivenControl.value]/52).toString()),
+      this.scoreMap.food[this.foodChoiceControl.value],
+      this.scoreMap.garbage[this.wasteControl.value],
+      this.scoreMap.electricity[this.electricityControl.value],
+      this.scoreMap.dishWasher[this.dishwasherControl.value] + this.scoreMap.washingMachine[this.washingMachineControl.value],
+    ]
   }
 }

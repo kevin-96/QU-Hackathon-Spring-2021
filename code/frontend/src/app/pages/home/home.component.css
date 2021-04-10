@@ -54,6 +54,10 @@ html, body {
 .padding {
   padding-bottom: 2rem;
 }
+.quiz-margin {
+  margin-left: 200px;
+  margin-right: 200px;
+}
 .welcome {
   width: 75%;
   margin: 0 auto;
